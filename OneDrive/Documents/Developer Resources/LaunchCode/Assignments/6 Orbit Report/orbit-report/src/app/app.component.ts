@@ -10,8 +10,10 @@ export class AppComponent {
   title = 'orbit-report';
   //Access satellite Class
   sourceList: Satellite[];
+  displayList: Satellite[];
   constructor() {
     this.sourceList = [];
+    this.displayList = [];
     let satellitesUrl = 'https://handlers.education.launchcode.org/static/satellites.json';
     let satellites;
     window.fetch(satellitesUrl).then(function(response) {
@@ -26,10 +28,11 @@ export class AppComponent {
           satellites = new Satellite(fetchedSatellites[i].name, fetchedSatellites[i].type, fetchedSatellites[i].launchDate, fetchedSatellites[i].orbitType, fetchedSatellites[i].operational);
           this.sourceList.push(satellites);
         }   
+        this.displayList = this.sourceList.slice(0);
        }.bind(this));
     }.bind(this));
  }
- //Step 8: Seach class
+ //Step 8: Seach method
  search(searchTerm: string): void {
   let matchingSatellites: Satellite[] = [];
   searchTerm = searchTerm.toLowerCase();
